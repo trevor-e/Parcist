@@ -36,6 +36,22 @@ public class Parcist {
         return bytes;
     }
 
+    public static <T extends Parcelable> byte[] writeTypedList(List<T> val) {
+        Parcel parcel = Parcel.obtain();
+        parcel.writeTypedList(val);
+        byte[] bytes = parcel.marshall();
+        parcel.recycle(); // not sure if needed or a good idea
+        return bytes;
+    }
+
+    public static <T extends Parcelable> byte[] writeTypedArray(T[] val) {
+        Parcel parcel = Parcel.obtain();
+        parcel.writeTypedArray(val, 0);
+        byte[] bytes = parcel.marshall();
+        parcel.recycle(); // not sure if needed or a good idea
+        return bytes;
+    }
+
     /**
      * Creates the given Parcelable class from marshalled data.
      * @param bytes The marshalled data
