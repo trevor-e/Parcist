@@ -1,4 +1,4 @@
-##com.trevore.parcist.Parcist
+##Parcist
 This is a simple Android library that piggy-backs off of `Parcel` to convert objects to and from byte format.  Currently this is in alpha, so expect it to change quite a bit.  This will eventually be a library project that you can add via Gradle.
 
 ##But... isn't that bad?
