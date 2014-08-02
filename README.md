@@ -2,7 +2,9 @@
 This is a simple Android library that piggy-backs off of `Parcel` to convert objects to and from byte format.  Currently this is in alpha, so expect it to change quite a bit.  This will eventually be a library project that you can add via Gradle.
 
 ##But... isn't that bad?
-There's an inherent risk to using this library.  Since it depends on Parcel, which is a framework class, updates to Android could potentially break your object's byte format.  For example, if you com.trevore.parcist.Parcist an object and write it to disk, receive an OTA Android update on your device, and then try to restore the object, there's a small chance it won't work.
+There's an inherent risk to using this library.  Since it depends on Parcel, which is a framework class, updates to Android could potentially break your object's byte format.  For example, if you Parcist an object and write it to disk, receive an OTA Android update on your device, and then try to restore the object, there's a small chance it won't work.
+
+Don't fret though.  This problem can be solved by copying Parcel's native implementation into my library so that it's guaranteed not to change.  Once Android Studio has better native support I will start this. :)
 
 ##Why should I use it then?
 Speed!
@@ -20,3 +22,8 @@ Yes.  Early benchmarks have shown a speed improvement of 8-9x over Gson.  Here i
     08-02 01:15:22.023    7482-7482/com.trevore.parcist D/benchmark﹕ Parcist is 8.25 times faster than Gson.
     08-02 01:15:22.024    7482-7482/com.trevore.parcist D/benchmark﹕ Parcist takes 1.04 times more space than Gson.
     08-02 01:15:22.024    7482-7482/com.trevore.parcist D/benchmark﹕ Benchmark complete.
+
+##What's left
+- Add more explicit write/read methods.
+- Investigate the usefulness of a chaining API to make Parcist'ing multiple objects easier.
+- Copy Parcel's native implementation so that I don't depend on the framework
