@@ -1,7 +1,6 @@
-package com.trevore.parcist;
+package com.trevore.parcist.sample;
 
 import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,6 +12,8 @@ import android.view.ViewGroup;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.trevore.parcist.Parcist;
+import com.trevore.parcist.ParcistInvalidatedException;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;

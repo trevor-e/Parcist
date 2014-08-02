@@ -1,4 +1,4 @@
-package com.trevore.parcist;
+package com.trevore.parcist.sample;
 
 import android.os.Parcel;
 import android.os.Parcelable;
