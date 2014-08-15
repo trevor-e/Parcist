@@ -4,9 +4,11 @@ This is a simple Android library that piggy-backs off of `Parcel` to convert obj
 Parcist easily works with any existing Parcelable object you have.  It actually works with any plain Object, but has better defined use if you stick with Parcelable.  Check it out, it's very easy!
 
 Marshalling:
+
     byte[] bytes = Parcist.writeTypedList(testObjects);
     
 Unmarshalling:
+
     try {
         List<User> users2 = new ArrayList<User>();
         Parcist.readTypedList(bytes, users2, User.CREATOR);
