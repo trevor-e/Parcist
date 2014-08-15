@@ -1,29 +1,40 @@
 ##Parcist
 This is a simple Android library that piggy-backs off of `Parcel` to convert objects to and from byte format.  Currently this is in alpha, so expect it to change quite a bit.  This will eventually be a library project that you can add via Gradle.
 
+Parcist easily works with any existing Parcelable object you have.  It actually works with any plain Object, but has better defined use if you stick with Parcelable.  Check it out, it's very easy!
+
+Marshalling:
+    byte[] bytes = Parcist.writeTypedList(testObjects);
+    
+Unmarshalling:
+    try {
+        List<User> users2 = new ArrayList<User>();
+        Parcist.readTypedList(bytes, users2, User.CREATOR);
+    } catch (ParcistInvalidatedException e) {
+        e.printStackTrace();
+    }
+
 ##But... isn't that bad?
-There's an inherent risk to using this library.  Since it depends on Parcel, which is a framework class, updates to Android could potentially break your object's byte format.  For example, if you Parcist an object and write it to disk, receive an OTA Android update on your device, and then try to restore the object, there's a small chance it won't work.
+There's an inherent risk to using this library, but it is very small.  Parcist depends upon Parcel's native methods, and if those change between the time your object is marshalled and unmarshalled, then it could fail.  Luckily, Android updates don't happen often and at this point they probably won't touch Parcel's implementation.  Still, please be aware of this.
 
 Don't fret though.  This problem can be solved by copying Parcel's native implementation into my library so that it's guaranteed not to change.  Once Android Studio has better native support I will start this. :)
 
 ##Why should I use it then?
 Speed!
 
-This may not be the right solution to store an object for a long time, but not everything needs that long of a shelf life.  Think of a cache.  If -- in the very small chance it happens -- the data can't be unmarshalled then just invalidate the cache.
+This may not be the right solution to persist an object for a very long time, but not everything needs that kind of a shelf life.  Think of a cache.  If -- in the very small chance it happens -- the data can't be unmarshalled then just invalidate the cache.
 
 ##You mentioned speed...
 Yes.  Early benchmarks have shown a speed improvement of 8-9x over Gson.  Here is a sample benchmark running on my Motorola Droid MAXX phone:
 
-    08-02 01:15:08.460    7482-7482/com.trevore.parcist D/benchmark﹕ Starting benchmark.
-    08-02 01:15:22.022    7482-7482/com.trevore.parcist D/benchmark﹕ Average Gson time (ms): 1159.6
-    08-02 01:15:22.022    7482-7482/com.trevore.parcist D/benchmark﹕ Average Parcist time (ms): 140.5
-    08-02 01:15:22.022    7482-7482/com.trevore.parcist D/benchmark﹕ Gson space (b): 27000.1
-    08-02 01:15:22.022    7482-7482/com.trevore.parcist D/benchmark﹕ Parcist space (b): 28000.4
-    08-02 01:15:22.023    7482-7482/com.trevore.parcist D/benchmark﹕ Parcist is 8.25 times faster than Gson.
-    08-02 01:15:22.024    7482-7482/com.trevore.parcist D/benchmark﹕ Parcist takes 1.04 times more space than Gson.
-    08-02 01:15:22.024    7482-7482/com.trevore.parcist D/benchmark﹕ Benchmark complete.
+10 Samples, List with 10,000 objects
+    D/benchmark﹕ Speed ratio: GsonBenchmark : ParcistBenchmark 5.52
+    D/benchmark﹕ Size ratio: GsonBenchmark : ParcistBenchmark 0.89
+    
+10 Samples, List with 50,000 objects
+    D/benchmark﹕ Speed ratio: GsonBenchmark : ParcistBenchmark 7.98
+    D/benchmark﹕ Size ratio: GsonBenchmark : ParcistBenchmark 0.89
 
 ##What's left
-- Add more explicit write/read methods.
 - Investigate the usefulness of a chaining API to make Parcist'ing multiple objects easier.
-- Copy Parcel's native implementation so that I don't depend on the framework
+- Copy Parcel's native implementation to remove framework dependency.
