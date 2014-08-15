@@ -10,8 +10,8 @@ Marshalling:
 Unmarshalling:
 
     try {
-        List<User> users2 = new ArrayList<User>();
-        Parcist.readTypedList(bytes, users2, User.CREATOR);
+        List<User> users = new ArrayList<User>();
+        Parcist.readTypedList(bytes, users, User.CREATOR);
     } catch (ParcistInvalidatedException e) {
         e.printStackTrace();
     }
@@ -30,10 +30,16 @@ This may not be the right solution to persist an object for a very long time, bu
 Yes.  Early benchmarks have shown a speed improvement of 8-9x over Gson.  Here is a sample benchmark running on my Motorola Droid MAXX phone:
 
 10 Samples, List with 10,000 objects
+
+    D/benchmark﹕ Average ParcistBenchmark time (ms): 343.0
+    D/benchmark﹕ Average GsonBenchmark time (ms): 1893.5
     D/benchmark﹕ Speed ratio: GsonBenchmark : ParcistBenchmark 5.52
     D/benchmark﹕ Size ratio: GsonBenchmark : ParcistBenchmark 0.89
     
 10 Samples, List with 50,000 objects
+
+    D/benchmark﹕ Average ParcistBenchmark time (ms): 1574.1
+    D/benchmark﹕ Average GsonBenchmark time (ms): 12564.3
     D/benchmark﹕ Speed ratio: GsonBenchmark : ParcistBenchmark 7.98
     D/benchmark﹕ Size ratio: GsonBenchmark : ParcistBenchmark 0.89
 
