@@ -20,19 +20,6 @@ import static org.junit.Assert.assertTrue;
 public class ParcistTest {
 
     @Test
-    public void testBundle() throws Exception {
-        Bundle bundle = new Bundle();
-        bundle.putString("testing1", "testValue");
-        bundle.putInt("testing2", 100);
-
-        byte[] bytes = Parcist.writeBundle(bundle);
-        Bundle bundle2 = Parcist.readBundle(bytes);
-
-        assertEquals("testValue", bundle2.getString("testing1"));
-        assertEquals(100, bundle2.getInt("testing2"));
-    }
-
-    @Test
     public void testParcelable() throws Exception {
         Car bmw = new Car("BMW", "328xi");
 
